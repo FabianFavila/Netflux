@@ -1,37 +1,17 @@
-<%= form_for(@movie) do |f| %>
-  <% if @movie.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
-
-      <ul>
-      <% @movie.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="container">
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-7">
+        <%= simple_form_for @movie do |f| %>
+            <%= f.input :title, label: 'Nombre de la pelicula:', autofocus: true %>
+            <%= f.input :description, label: 'Descripcion:', as: :text %>
+            <%= f.input :year, label: 'Año de publicacion:', input_html: { value: '2000' } %>
+            <%= f.input :rating, label: 'Rating:', placeholder: 'Ingresa un numero del 1 al 5' %>
+            <%= f.input :stock, label: 'Existencia en almacen:' %>
+            <%= f.input :image, label: 'Link de imagen' %>
+            <%= f.button :submit, "Registrar pelicula", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.text_field :year %>
-  </div>
-  <div class="field">
-    <%= f.label :rating %><br>
-    <%= f.text_field :rating %>
-  </div>
-  <div class="field">
-    <%= f.label :stock %><br>
-    <%= f.text_field :stock %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
