@@ -1,6 +1,6 @@
 class RentsController < ApplicationController
   before_action :set_rent, only: [:show, :edit, :update, :destroy]
-  before_action :set_movie
+  before_action :set_movie, except: [:index]
   before_action :authenticate_user!
 
   # GET /rents
@@ -17,27 +17,27 @@ class RentsController < ApplicationController
 
   # GET /rents/new
   def new
-    @rent = Rent.new
-  end
-
-
-  # POST /rents
-  # POST /rents.json
-  def create
-    @rent = Rent.new(rent_params)
+    @rent = Rent.new()
     @rent.user_id = current_user.id
     @rent.movie_id = @movie.id
     @rent.start = Time.now
     @rent.end = Time.now + 5.days
 
     if @rent.save
-      @movie.stock - 1
+      @movie.stock = @movie.stock - 1
+      @movie.save
       flash[:success] = "Tu renta fue creada exitosamente"
-      redirect_to root
+      redirect_to root_path
     else
       flash[:alert] = "Hubo un problema al crear tu renta."
-      redirect_to root
+      redirect_to root_path
     end
+  end
+
+  # POST /rents
+  # POST /rents.json
+  def create
+    @rent = Rent.new(rent_params)
   end
 
   private

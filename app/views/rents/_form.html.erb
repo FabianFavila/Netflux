@@ -2,15 +2,7 @@
   <div class="jumbotron">
     <div class="row">
       <div class="col-md-7">
-
-<%= simple_form_for([@movie, @rent]) do |f| %>
-  <h2>Renta para <% @movie.title %></h2>
-  <br>
-  <h2>Para entrega el: <% Time.now + 5.days %></h2>
-  <h2>Precio: $50</h2>
-  <%= f.button :submit, "Pagar y rentar", class: "btn btn-warning" %>
-<% end %>
-
+        <h1>Procesando tu renta</h1>
       </div>
     </div>
   </div>

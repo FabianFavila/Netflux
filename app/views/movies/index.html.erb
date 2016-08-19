@@ -11,6 +11,18 @@
   </div>
 <% end %>
 
+<% flash.each do |name, msg| -%>
+  <% if flash[:success] %>
+    <div class="alert alert-success">
+      <strong>Awesome!</strong> <%= msg %>
+    </div>
+  <% elsif flash[:error] %>
+    <div class="alert alert-danger">
+      <strong>Lo sentimos!</strong> <%= msg %>
+    </div>
+  <% end %>
+<% end -%>
+
 <div class="row">
   <% @movies.each do |movie| %>
     <div class="col-sm-6 col-md-3">

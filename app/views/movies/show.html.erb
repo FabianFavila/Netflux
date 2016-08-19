@@ -30,12 +30,17 @@
             </tbody>
           </table>
         </div>
-        <% if @movie.stock == 0 %>
-          <button type="button" class="btn btn-default disabled btn-block">Lo sentimos, esta pelicula no esta disponible</button>
+        <% @rents = Rent.where(user_id: current_user.id, movie_id: @movie.id) %>
+        <% if @rents.count >= 1 %>
+          <button type="button" class="btn btn-default disabled btn-block">Ya tienes esta pelicula rentada actualmente</button>
         <% else %>
-          <form>
-            <%= link_to "Rentar", new_rent_path(@movie), :class => 'btn btn-danger btn-block' %>
-          </form>
+          <% if @movie.stock == 0 %>
+            <button type="button" class="btn btn-default disabled btn-block">Lo sentimos, esta pelicula no esta disponible</button>
+          <% else %>
+            <form>
+              <%= link_to "Rentar", {:controller => "rents", :action => "new", :movie_id => @movie.id}, :class => 'btn btn-danger btn-block' %>
+            </form>
+          <% end %>
         <% end %>
       </div>
     </div>
